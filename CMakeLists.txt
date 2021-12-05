@@ -75,9 +75,11 @@ add_library(hw_grpc_proto
 
 file(GLOB ProjectSRC
         "detect_service/*.cc"
+        "camera_task/*.cc"
         "config/*.cc"
         "model/*.cc"
         "utils/*.cc"
+        "utils/x_thread_pool/*.cc"
         "control/*.cc"
         "*.cc")
 
