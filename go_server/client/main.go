@@ -4,16 +4,18 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"go_server/client/defs"
-	conf "go_server/configs/grpc"
-	Detect "go_server/detect_service"
-	"google.golang.org/grpc"
 	"log"
 	"time"
+
+	"google.golang.org/grpc"
+
+	"go_server/client/defs"
+	Detect "go_server/detect_service"
 )
 
 func main() {
-	conn, err := grpc.Dial(conf.Basic.RpcNetwork()+":"+conf.Basic.RpcPort(), grpc.WithTransportCredentials(Detect.GetClientCreds()))
+	// conn, err := grpc.Dial(conf.Basic.RpcNetwork()+":"+conf.Basic.RpcPort(), grpc.WithTransportCredentials(Detect.GetClientCreds()))
+	conn, err := grpc.Dial("10.100.214.20:50005", grpc.WithTransportCredentials(Detect.GetClientCreds()))
 	if err != nil {
 		log.Panicln(err.Error())
 	}

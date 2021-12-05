@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/8/17.
-//
-
 #include "x_thread.h"
 #include <chrono>
 

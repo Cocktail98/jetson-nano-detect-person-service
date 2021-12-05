@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/9/6.
-//
-
 #ifndef YOLOV5_CONFIG_BASIC_SETTING_H_
 #define YOLOV5_CONFIG_BASIC_SETTING_H_
 

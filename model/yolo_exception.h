@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/9/3.
-//
-
 #ifndef YOLOV5_MODEL_YOLO_EXCEPTION_H_
 #define YOLOV5_MODEL_YOLO_EXCEPTION_H_
 

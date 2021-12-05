@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/9/3.
-//
-
 #include <cmath>
 
 #include "yolo_v_5.h"

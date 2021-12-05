@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/9/6.
-//
-
 #include "detect_service_server.h"
 #include "detect_service_impl.h"
 #include "../utils/get_cred.h"

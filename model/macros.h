@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/9/6.
-//
-
 #ifndef YOLOV5_MODEL_MACROS_H_
 #define YOLOV5_MODEL_MACROS_H_
 

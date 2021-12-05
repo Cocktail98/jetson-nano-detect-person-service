@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/9/7.
-//
-
 #ifndef YOLOV5_DEFS_INFO_H_
 #define YOLOV5_DEFS_INFO_H_
 

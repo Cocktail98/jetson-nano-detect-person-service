@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/8/16.
-//
-
 #include <fstream>
 
 #include "get_cred.h"

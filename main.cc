@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/9/3.
-//
-
 #include <thread>
 #include <mutex>
 #include <csignal>

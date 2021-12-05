@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/8/17.
-//
-
 #ifndef YOLOV5_UTILS_X_THREAD_H_
 #define YOLOV5_UTILS_X_THREAD_H_
 

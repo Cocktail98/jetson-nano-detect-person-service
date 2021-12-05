@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/9/6.
-//
-
 #include "detect_service_impl.h"
 
 ::grpc::Status DetectServiceImpl::DetectedRect(::grpc::ServerContext *_context,
