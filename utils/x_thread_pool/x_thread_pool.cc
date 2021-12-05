@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/10/2.
-//
-
 #include <iostream>
 #include <sstream>
 #include <thread>

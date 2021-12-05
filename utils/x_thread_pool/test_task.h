@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/9/20.
-//
-
 #ifndef XTHREADPOOL_XTHREADPOOL_TEST_TASK_H_
 #define XTHREADPOOL_XTHREADPOOL_TEST_TASK_H_
 

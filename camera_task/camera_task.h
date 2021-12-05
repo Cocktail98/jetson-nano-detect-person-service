@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/12/5.
-//
-
 #ifndef YOLOV5_CAMERA_TASK_CAMERA_TASK_H_
 #define YOLOV5_CAMERA_TASK_CAMERA_TASK_H_
 

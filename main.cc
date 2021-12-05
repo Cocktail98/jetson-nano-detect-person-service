@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/9/3.
-//
-
 #include "model/yolo_v_5.h"
 #include "model/gen_color.h"
 #include "detect_service/detect_service_server.h"
@@ -106,7 +102,7 @@ int main(int argc, char **argv) {
   for (int i = 0; i < camera_num; ++i) {
     // 创建相机任务
     auto camera_task = std::make_shared<CameraTask>();
-    if (camera_task->Init(i, kWidth, kHeight)) {
+    if (!camera_task->Init(i, kWidth, kHeight)) {
       throw std::runtime_error("camera " + std::to_string(i) + " open failed");
     }
 
@@ -126,29 +122,31 @@ int main(int argc, char **argv) {
 
     // 读取相机线程的照片
     for (auto &camera_task: camera_tasks) {
-      images.push_back(camera_task->image_);
+      if (!camera_task->image_.empty())
+        images.push_back(camera_task->image_);
     }
 
     // 处理照片
     auto camera_rect = std::make_shared<std::vector<Box::Camera>>();
     int id = 0;
-    for (auto &img: images) {
-      // 转换
-      img = YoloV5::BGR2RGB(data, img);
+    if (!images.empty()) {
+      for (auto &img: images) {
+        // 转换
+        img = YoloV5::BGR2RGB(data, img);
 
-      // 向前推导
-      auto boxes = YoloV5::Get()->Inference(colors_list, id_name, data, prob, img);
+        // 向前推导
+        auto boxes = YoloV5::Get()->Inference(colors_list, id_name, data, prob, img);
 
-      // 处理结果
-      if (!boxes->empty()) {
-        camera_rect->emplace_back(id++, boxes);
-      }
+        // 处理结果
+        if (!boxes->empty()) {
+          camera_rect->emplace_back(id++, boxes);
+        }
 
-      if (!is_running) {
-        break;
+        if (!is_running) {
+          break;
+        }
       }
     }
-
     // 处理结果
     if (!camera_rect->empty()) {
 //        // 格式化成 json 字符串，输出

@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/10/2.
-//
-
 #ifndef XFILECRYPT_X_THREAD_POOL_X_TASK_H_
 #define XFILECRYPT_X_THREAD_POOL_X_TASK_H_
 

@@ -1,7 +1,3 @@
-//
-// Created by Homin Su on 2021/12/5.
-//
-
 #include "camera_task.h"
 
 CameraTask::~CameraTask() {
