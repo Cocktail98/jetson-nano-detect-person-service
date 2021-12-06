@@ -61,6 +61,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DetectRequestDefaultTypeInterna
 constexpr DetectResponse::DetectResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : camera_rect_()
+  , resp_timestamp_(nullptr)
   , status_(false){}
 struct DetectResponseDefaultTypeInternal {
   constexpr DetectResponseDefaultTypeInternal()
@@ -107,6 +108,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_detect_2eproto::offsets[] PROT
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Detect::DetectResponse, status_),
   PROTOBUF_FIELD_OFFSET(::Detect::DetectResponse, camera_rect_),
+  PROTOBUF_FIELD_OFFSET(::Detect::DetectResponse, resp_timestamp_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::Detect::BoxRect)},
@@ -123,22 +125,27 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_detect_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014detect.proto\022\006Detect\"P\n\007BoxRect\022\t\n\001x\030\001"
-  " \001(\001\022\t\n\001y\030\002 \001(\001\022\r\n\005width\030\003 \001(\001\022\016\n\006height"
-  "\030\004 \001(\001\022\020\n\010class_id\030\005 \001(\003\"B\n\nCameraRect\022\021"
-  "\n\tcamera_id\030\001 \001(\003\022!\n\010box_rect\030\002 \003(\0132\017.De"
-  "tect.BoxRect\"\037\n\rDetectRequest\022\016\n\006status\030"
-  "\001 \001(\010\"I\n\016DetectResponse\022\016\n\006status\030\001 \001(\010\022"
-  "\'\n\013camera_rect\030\002 \003(\0132\022.Detect.CameraRect"
-  "2V\n\023DetectResultService\022\?\n\014DetectedRect\022"
-  "\025.Detect.DetectRequest\032\026.Detect.DetectRe"
-  "sponse\"\000B\030Z\026/detect_service;Detectb\006prot"
-  "o3"
+  "\n\014detect.proto\022\006Detect\032\037google/protobuf/"
+  "timestamp.proto\"P\n\007BoxRect\022\t\n\001x\030\001 \001(\001\022\t\n"
+  "\001y\030\002 \001(\001\022\r\n\005width\030\003 \001(\001\022\016\n\006height\030\004 \001(\001\022"
+  "\020\n\010class_id\030\005 \001(\003\"B\n\nCameraRect\022\021\n\tcamer"
+  "a_id\030\001 \001(\003\022!\n\010box_rect\030\002 \003(\0132\017.Detect.Bo"
+  "xRect\"\037\n\rDetectRequest\022\016\n\006status\030\001 \001(\010\"}"
+  "\n\016DetectResponse\022\016\n\006status\030\001 \001(\010\022\'\n\013came"
+  "ra_rect\030\002 \003(\0132\022.Detect.CameraRect\0222\n\016res"
+  "p_timestamp\030\003 \001(\0132\032.google.protobuf.Time"
+  "stamp2V\n\023DetectResultService\022\?\n\014Detected"
+  "Rect\022\025.Detect.DetectRequest\032\026.Detect.Det"
+  "ectResponse\"\000B\030Z\026/detect_service;Detectb"
+  "\006proto3"
   ;
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_detect_2eproto_deps[1] = {
+  &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
+};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_detect_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_detect_2eproto = {
-  false, false, 402, descriptor_table_protodef_detect_2eproto, "detect.proto", 
-  &descriptor_table_detect_2eproto_once, nullptr, 0, 4,
+  false, false, 487, descriptor_table_protodef_detect_2eproto, "detect.proto", 
+  &descriptor_table_detect_2eproto_once, descriptor_table_detect_2eproto_deps, 1, 4,
   schemas, file_default_instances, TableStruct_detect_2eproto::offsets,
   file_level_metadata_detect_2eproto, file_level_enum_descriptors_detect_2eproto, file_level_service_descriptors_detect_2eproto,
 };
@@ -835,8 +842,19 @@ void DetectRequest::InternalSwap(DetectRequest* other) {
 
 class DetectResponse::_Internal {
  public:
+  static const PROTOBUF_NAMESPACE_ID::Timestamp& resp_timestamp(const DetectResponse* msg);
 };
 
+const PROTOBUF_NAMESPACE_ID::Timestamp&
+DetectResponse::_Internal::resp_timestamp(const DetectResponse* msg) {
+  return *msg->resp_timestamp_;
+}
+void DetectResponse::clear_resp_timestamp() {
+  if (GetArenaForAllocation() == nullptr && resp_timestamp_ != nullptr) {
+    delete resp_timestamp_;
+  }
+  resp_timestamp_ = nullptr;
+}
 DetectResponse::DetectResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
@@ -851,12 +869,20 @@ DetectResponse::DetectResponse(const DetectResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       camera_rect_(from.camera_rect_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_resp_timestamp()) {
+    resp_timestamp_ = new PROTOBUF_NAMESPACE_ID::Timestamp(*from.resp_timestamp_);
+  } else {
+    resp_timestamp_ = nullptr;
+  }
   status_ = from.status_;
   // @@protoc_insertion_point(copy_constructor:Detect.DetectResponse)
 }
 
 inline void DetectResponse::SharedCtor() {
-status_ = false;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&resp_timestamp_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&status_) -
+    reinterpret_cast<char*>(&resp_timestamp_)) + sizeof(status_));
 }
 
 DetectResponse::~DetectResponse() {
@@ -868,6 +894,7 @@ DetectResponse::~DetectResponse() {
 
 inline void DetectResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete resp_timestamp_;
 }
 
 void DetectResponse::ArenaDtor(void* object) {
@@ -887,6 +914,10 @@ void DetectResponse::Clear() {
   (void) cached_has_bits;
 
   camera_rect_.Clear();
+  if (GetArenaForAllocation() == nullptr && resp_timestamp_ != nullptr) {
+    delete resp_timestamp_;
+  }
+  resp_timestamp_ = nullptr;
   status_ = false;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -914,6 +945,13 @@ const char* DetectResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // .google.protobuf.Timestamp resp_timestamp = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_resp_timestamp(), ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -959,6 +997,14 @@ failure:
       InternalWriteMessage(2, this->_internal_camera_rect(i), target, stream);
   }
 
+  // .google.protobuf.Timestamp resp_timestamp = 3;
+  if (this->_internal_has_resp_timestamp()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        3, _Internal::resp_timestamp(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -980,6 +1026,13 @@ size_t DetectResponse::ByteSizeLong() const {
   for (const auto& msg : this->camera_rect_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // .google.protobuf.Timestamp resp_timestamp = 3;
+  if (this->_internal_has_resp_timestamp()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *resp_timestamp_);
   }
 
   // bool status = 1;
@@ -1016,6 +1069,9 @@ void DetectResponse::MergeFrom(const DetectResponse& from) {
   (void) cached_has_bits;
 
   camera_rect_.MergeFrom(from.camera_rect_);
+  if (from._internal_has_resp_timestamp()) {
+    _internal_mutable_resp_timestamp()->PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_resp_timestamp());
+  }
   if (from._internal_status() != 0) {
     _internal_set_status(from._internal_status());
   }
@@ -1037,7 +1093,12 @@ void DetectResponse::InternalSwap(DetectResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   camera_rect_.InternalSwap(&other->camera_rect_);
-  swap(status_, other->status_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(DetectResponse, status_)
+      + sizeof(DetectResponse::status_)
+      - PROTOBUF_FIELD_OFFSET(DetectResponse, resp_timestamp_)>(
+          reinterpret_cast<char*>(&resp_timestamp_),
+          reinterpret_cast<char*>(&other->resp_timestamp_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata DetectResponse::GetMetadata() const {

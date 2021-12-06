@@ -31,6 +31,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
+#include <google/protobuf/timestamp.pb.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_detect_2eproto
@@ -674,6 +675,7 @@ class DetectResponse final :
 
   enum : int {
     kCameraRectFieldNumber = 2,
+    kRespTimestampFieldNumber = 3,
     kStatusFieldNumber = 1,
   };
   // repeated .Detect.CameraRect camera_rect = 2;
@@ -694,6 +696,24 @@ class DetectResponse final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Detect::CameraRect >&
       camera_rect() const;
 
+  // .google.protobuf.Timestamp resp_timestamp = 3;
+  bool has_resp_timestamp() const;
+  private:
+  bool _internal_has_resp_timestamp() const;
+  public:
+  void clear_resp_timestamp();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& resp_timestamp() const;
+  PROTOBUF_MUST_USE_RESULT PROTOBUF_NAMESPACE_ID::Timestamp* release_resp_timestamp();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_resp_timestamp();
+  void set_allocated_resp_timestamp(PROTOBUF_NAMESPACE_ID::Timestamp* resp_timestamp);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_resp_timestamp() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_resp_timestamp();
+  public:
+  void unsafe_arena_set_allocated_resp_timestamp(
+      PROTOBUF_NAMESPACE_ID::Timestamp* resp_timestamp);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_resp_timestamp();
+
   // bool status = 1;
   void clear_status();
   bool status() const;
@@ -711,6 +731,7 @@ class DetectResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Detect::CameraRect > camera_rect_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* resp_timestamp_;
   bool status_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_detect_2eproto;
@@ -976,6 +997,92 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Detect::CameraRect >&
 DetectResponse::camera_rect() const {
   // @@protoc_insertion_point(field_list:Detect.DetectResponse.camera_rect)
   return camera_rect_;
+}
+
+// .google.protobuf.Timestamp resp_timestamp = 3;
+inline bool DetectResponse::_internal_has_resp_timestamp() const {
+  return this != internal_default_instance() && resp_timestamp_ != nullptr;
+}
+inline bool DetectResponse::has_resp_timestamp() const {
+  return _internal_has_resp_timestamp();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& DetectResponse::_internal_resp_timestamp() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = resp_timestamp_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
+      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& DetectResponse::resp_timestamp() const {
+  // @@protoc_insertion_point(field_get:Detect.DetectResponse.resp_timestamp)
+  return _internal_resp_timestamp();
+}
+inline void DetectResponse::unsafe_arena_set_allocated_resp_timestamp(
+    PROTOBUF_NAMESPACE_ID::Timestamp* resp_timestamp) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(resp_timestamp_);
+  }
+  resp_timestamp_ = resp_timestamp;
+  if (resp_timestamp) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Detect.DetectResponse.resp_timestamp)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* DetectResponse::release_resp_timestamp() {
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = resp_timestamp_;
+  resp_timestamp_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* DetectResponse::unsafe_arena_release_resp_timestamp() {
+  // @@protoc_insertion_point(field_release:Detect.DetectResponse.resp_timestamp)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = resp_timestamp_;
+  resp_timestamp_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* DetectResponse::_internal_mutable_resp_timestamp() {
+  
+  if (resp_timestamp_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArenaForAllocation());
+    resp_timestamp_ = p;
+  }
+  return resp_timestamp_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* DetectResponse::mutable_resp_timestamp() {
+  PROTOBUF_NAMESPACE_ID::Timestamp* _msg = _internal_mutable_resp_timestamp();
+  // @@protoc_insertion_point(field_mutable:Detect.DetectResponse.resp_timestamp)
+  return _msg;
+}
+inline void DetectResponse::set_allocated_resp_timestamp(PROTOBUF_NAMESPACE_ID::Timestamp* resp_timestamp) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(resp_timestamp_);
+  }
+  if (resp_timestamp) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(resp_timestamp));
+    if (message_arena != submessage_arena) {
+      resp_timestamp = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, resp_timestamp, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  resp_timestamp_ = resp_timestamp;
+  // @@protoc_insertion_point(field_set_allocated:Detect.DetectResponse.resp_timestamp)
 }
 
 #ifdef __GNUC__
