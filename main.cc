@@ -90,26 +90,34 @@ int main(int argc, char **argv) {
 
   server.Start(); // 启动 rpc 服务
 
-  int camera_num = 1;
+  int camera_num = 2;
 
   // 初始化线程池
-  XThreadPool::Get()->Init(1);
+  XThreadPool::Get()->Init(4);
 
   // 摄像机任务列表
-  std::list<std::shared_ptr<CameraTask>> camera_tasks;
+  std::vector<std::shared_ptr<CameraTask>> camera_tasks;
 
   // 初始化全部摄像机
   for (int i = 0; i < camera_num; ++i) {
     // 创建相机任务
     auto camera_task = std::make_shared<CameraTask>();
     if (!camera_task->Init(i, kWidth, kHeight)) {
+      std::cout << "failed!!" << std::endl;
       throw std::runtime_error("camera " + std::to_string(i) + " open failed");
     }
+
+    std::cout << "camera_task: " << i << " up" << std::endl;
+    std::cout << "XThreadPool::task_run_count(): " << XThreadPool::Get()->task_run_count() << std::endl;
 
     // 任务加入线程池
     XThreadPool::Get()->AddTask(camera_task);
     camera_tasks.push_back(camera_task);
   }
+  std::cout << "XThreadPool::task_run_count(): " << XThreadPool::Get()->task_run_count() << std::endl;
+
+  std::cout << "XThreadPool::Get()->threads_.size(): " << XThreadPool::Get()->threads_.size() << std::endl;
+  std::cout << "XThreadPool::Get()->x_tasks_.size(): " << XThreadPool::Get()->x_tasks_.size() << std::endl;
 
 //  FILE *fp = nullptr;
   while (true) {
@@ -122,6 +130,7 @@ int main(int argc, char **argv) {
 
     // 读取相机线程的照片
     for (auto &camera_task: camera_tasks) {
+//      std::cout << camera_task->image_.empty() << std::endl;
       if (!camera_task->image_.empty())
         images.push_back(camera_task->image_);
     }
@@ -141,6 +150,13 @@ int main(int argc, char **argv) {
         if (!boxes->empty()) {
           camera_rect->emplace_back(id++, boxes);
         }
+
+//        std::cout << images.size() << std::endl;
+
+//        for (auto &c: *camera_rect) {
+//          std::cout << c.camera_id() << "\t";
+//        }
+//        std::cout << std::endl;
 
         if (!is_running) {
           break;

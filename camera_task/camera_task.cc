@@ -25,6 +25,10 @@ void CameraTask::Main() {
     cv_.wait(lock);
 
     video_capture_ >> image_;
+
+    std::stringstream str;
+    str << std::this_thread::get_id() << ": " << image_.empty() << ", " << video_capture_.isOpened() << std::endl;
+    std::cout << str.str();
   }
 
   set_return(true);

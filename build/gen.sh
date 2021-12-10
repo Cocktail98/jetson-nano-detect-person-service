@@ -1,9 +1,19 @@
 #!/bin/bash
+
+#printf "make clean ..."
+#make clean
+#printf "\n make clean finished ..."
+
+printf "\n Generate gRPC ..."
+cd ..
+sh gen_grpc.sh
+# shellcheck disable=SC2164
+cd build
+printf "\n Generate gRPC finished ..."
+
 cmake -DCMAKE_BUILD_TYPE=Release ..
 
-cores_num=$(grep -c processor /proc/cpuinfo)
+printf "\nUsing %d cores to build ...\n\n" "$(nproc)"
 
-printf "\nUsing %d cores to build ...\n\n" "$cores_num"
-
-cmake --build . -j"$cores_num"
+cmake --build . -j"$(nproc)"
 printf "\nBuild finished ...\n\n"
