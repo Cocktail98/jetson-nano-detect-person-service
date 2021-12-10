@@ -11,7 +11,7 @@ sh gen_grpc.sh
 cd build
 printf "\n Generate gRPC finished ..."
 
-cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake -DCMAKE_BUILD_TYPE=Debug ..
 
 printf "\nUsing %d cores to build ...\n\n" "$(nproc)"
 

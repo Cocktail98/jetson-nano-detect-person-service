@@ -16,10 +16,10 @@ XThreadPool::~XThreadPool() {
  * @brief 初始化所有线程，并启动线程
  * @param _thread_nums 线程数量
  */
-size_t XThreadPool::Init(size_t _thread_num = std::thread::hardware_concurrency()) {
+size_t XThreadPool::Init(size_t _thread_nums) {
   std::unique_lock<std::shared_mutex> lock(mutex_);
 
-  thread_nums_ = _thread_num;
+  thread_nums_ = _thread_nums;
 
   // 处理异常
   if (thread_nums_ <= 0) {

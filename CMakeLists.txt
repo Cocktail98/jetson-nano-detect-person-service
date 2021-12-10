@@ -22,7 +22,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Ofast -Wfatal-errors -
 set(CMAKE_PREFIX_PATH "/home/ynu/.local")
 
 if (CMAKE_BUILD_TYPE STREQUAL Debug)
-    ADD_DEFINITIONS(-DDEBUG)
+    ADD_DEFINITIONS(-DDebug)
     message(STATUS "CMake Build Type: Debug")
     message("")
 elseif (CMAKE_BUILD_TYPE STREQUAL Release)

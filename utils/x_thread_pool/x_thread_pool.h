@@ -48,7 +48,7 @@ class XThreadPool {
   /**
    * @brief 初始化所有线程，并启动线程
    */
-  size_t Init(size_t _thread_num);
+  size_t Init(size_t _thread_nums);
 
   /**
    * @brief 线程池退出
