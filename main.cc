@@ -54,19 +54,6 @@ int main(int argc, char **argv) {
   // 准备神经网络和 gpu buffer
   YoloV5::Get()->PrepareInput();
 
-  // open the camera
-//  cv::VideoCapture capture(0);
-//  if (!capture.isOpened()) {
-//    std::cout << "Failed to open camera." << std::endl;
-//    return EXIT_FAILURE;
-//  }
-//  capture.set(cv::CAP_PROP_FRAME_WIDTH, kWidth);
-//  capture.set(cv::CAP_PROP_FRAME_HEIGHT, kHeight);
-//  capture.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'));
-
-  // create a window to show the detected frame
-//  cv::namedWindow("dst", cv::WINDOW_AUTOSIZE);
-
   // 框颜色
   std::vector<cv::Scalar> colors_list = GetColors(YoloV5::CLASS_NUM);
   std::vector<std::string> id_name = {
@@ -156,11 +143,6 @@ int main(int argc, char **argv) {
     }
     // 处理结果
     if (!camera_rect->empty()) {
-//        // 格式化成 json 字符串，输出
-//        for (const auto box: *boxes) {
-//          std::cout << box.ToJson().dump() << std::endl;
-//        }
-//        std::cout << std::endl;
 
       info.set_camera_rect(camera_rect);
 
