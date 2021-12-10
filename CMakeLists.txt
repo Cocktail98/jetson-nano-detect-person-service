@@ -73,6 +73,9 @@ add_library(hw_grpc_proto
         ${hw_proto_hdrs})
         ]]
 
+# 关闭警告
+add_definitions(-w)
+
 file(GLOB ProjectSRC
         "detect_service/*.cc"
         "camera_task/*.cc"

@@ -111,7 +111,11 @@ int main(int argc, char **argv) {
     XThreadPool::Get()->AddTask(camera_task);
     camera_tasks.push_back(camera_task);
   }
-  std::this_thread::sleep_for(std::chrono::seconds(5 * camera_num));
+  std::cout << "Camera initialization ... " << std::endl;
+
+  std::this_thread::sleep_for(std::chrono::seconds(10 * camera_num));
+
+  std::cout << "Start Detect ... " << std::endl;
 
 //  FILE *fp = nullptr;
   while (true) {
@@ -121,7 +125,7 @@ int main(int argc, char **argv) {
     for (auto &camera_task: camera_tasks) {
       camera_task->cv_.notify_one();
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds (500));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // 读取相机线程的照片
     for (auto &camera_task: camera_tasks) {

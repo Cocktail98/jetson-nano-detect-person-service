@@ -1,8 +1,8 @@
 #!/bin/sh
 
-printf "make clean ..."
-make clean
-printf "\n make clean finished ..."
+#printf "make clean ..."
+#make clean
+#printf "\n make clean finished ..."
 
 printf "\n Generate gRPC ..."
 cd ..
