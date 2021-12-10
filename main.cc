@@ -100,7 +100,7 @@ int main(int argc, char **argv) {
   }
   std::cout << "[INFO] Camera initialization ... " << std::endl;
 
-  std::this_thread::sleep_for(std::chrono::seconds(15 * camera_num));
+  std::this_thread::sleep_for(std::chrono::seconds(10 * camera_num));
 
   std::cout << "[INFO] Start Detect ... " << std::endl;
   std::cout << "[INFO] Thread Count: " << XThreadPool::Get()->task_run_count() << std::endl;
