@@ -7,7 +7,8 @@ CameraTask::~CameraTask() {
 }
 
 bool CameraTask::Init(const int &_camera_id, const int &_width, const int &_height) {
-  video_capture_.open(_camera_id);
+  camera_id_ = _camera_id;
+  video_capture_.open(camera_id_);
   if (!video_capture_.isOpened()) {
     return false;
   }
@@ -24,11 +25,9 @@ void CameraTask::Main() {
     // 阻塞
     cv_.wait(lock);
 
-    video_capture_ >> image_;
-
-    std::stringstream str;
-    str << std::this_thread::get_id() << ": " << image_.empty() << ", " << video_capture_.isOpened() << std::endl;
-    std::cout << str.str();
+    if (video_capture_.isOpened()) {
+      video_capture_ >> image_;
+    }
   }
 
   set_return(true);

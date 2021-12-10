@@ -11,7 +11,7 @@
 
 class CameraTask : public XTask<bool> {
  private:
-  int camera_id{};
+  int camera_id_{};
   cv::VideoCapture video_capture_{};
   mutable std::shared_mutex mutex_;
 

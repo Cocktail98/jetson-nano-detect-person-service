@@ -93,7 +93,7 @@ int main(int argc, char **argv) {
   int camera_num = 2;
 
   // 初始化线程池
-  XThreadPool::Get()->Init(4);
+  XThreadPool::Get()->Init(camera_num);
 
   // 摄像机任务列表
   std::vector<std::shared_ptr<CameraTask>> camera_tasks;
@@ -107,17 +107,11 @@ int main(int argc, char **argv) {
       throw std::runtime_error("camera " + std::to_string(i) + " open failed");
     }
 
-    std::cout << "camera_task: " << i << " up" << std::endl;
-    std::cout << "XThreadPool::task_run_count(): " << XThreadPool::Get()->task_run_count() << std::endl;
-
     // 任务加入线程池
     XThreadPool::Get()->AddTask(camera_task);
     camera_tasks.push_back(camera_task);
   }
-  std::cout << "XThreadPool::task_run_count(): " << XThreadPool::Get()->task_run_count() << std::endl;
-
-  std::cout << "XThreadPool::Get()->threads_.size(): " << XThreadPool::Get()->threads_.size() << std::endl;
-  std::cout << "XThreadPool::Get()->x_tasks_.size(): " << XThreadPool::Get()->x_tasks_.size() << std::endl;
+  std::this_thread::sleep_for(std::chrono::seconds(5 * camera_num));
 
 //  FILE *fp = nullptr;
   while (true) {
@@ -127,10 +121,10 @@ int main(int argc, char **argv) {
     for (auto &camera_task: camera_tasks) {
       camera_task->cv_.notify_one();
     }
+    std::this_thread::sleep_for(std::chrono::milliseconds (500));
 
     // 读取相机线程的照片
     for (auto &camera_task: camera_tasks) {
-//      std::cout << camera_task->image_.empty() << std::endl;
       if (!camera_task->image_.empty())
         images.push_back(camera_task->image_);
     }
@@ -150,13 +144,6 @@ int main(int argc, char **argv) {
         if (!boxes->empty()) {
           camera_rect->emplace_back(id++, boxes);
         }
-
-//        std::cout << images.size() << std::endl;
-
-//        for (auto &c: *camera_rect) {
-//          std::cout << c.camera_id() << "\t";
-//        }
-//        std::cout << std::endl;
 
         if (!is_running) {
           break;
@@ -185,6 +172,9 @@ int main(int argc, char **argv) {
   }
 
   server.Stop();  // 停止 rpc 服务
+  for (auto &camera_task: camera_tasks) {
+    camera_task->cv_.notify_one();
+  }
   XThreadPool::Get()->Stop();
   return EXIT_SUCCESS;
 }

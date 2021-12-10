@@ -1,7 +1,11 @@
+//
+// Created by Homin Su on 2021/10/2.
+//
+
 #ifndef XFILECRYPT_X_THREAD_POOL_X_THREAD_POOL_H_
 #define XFILECRYPT_X_THREAD_POOL_X_THREAD_POOL_H_
 
-#include <list>
+#include <queue>
 #include <vector>
 #include <thread>
 #include <shared_mutex>
@@ -17,7 +21,7 @@ class XThreadPool {
  private:
   size_t thread_nums_ = 0; ///< 线程数量
   std::vector<std::unique_ptr<std::thread>> threads_;  ///< 线程池线程
-  std::list<std::shared_ptr<XTaskBase>> x_tasks_;   ///< 任务队列
+  std::queue<std::shared_ptr<XTaskBase>> x_tasks_;   ///< 任务队列
   std::atomic<bool> is_running_ = false;      ///< 线程池运行状态
   std::atomic<int> task_run_count_ = 0; ///< 正在运行的任务数量，原子变量，线程安全
 
